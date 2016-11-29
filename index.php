@@ -1,7 +1,7 @@
 ﻿<?php
 
-	error_reporting(E_ALL);
-
+	error_reporting(E_ERROR | ~E_WARNING | ~E_NOTICE);
+	
 	include_once('inc/header.php');	
 	include_once('yandexThemAll.php');	
 
@@ -59,7 +59,7 @@
 					<option>uk-UK</option>					
 				</select>			
 			</div>
-			<div class="langs">Язык перевода<br/>
+			<div class="langs">Формат аудиофайла<br/>
 				<select name="format">
 					<option>WAV</option>
 					<option>MP3</option>
