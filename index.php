@@ -3,15 +3,11 @@
 	error_reporting(E_ALL);
 
 	include_once('inc/header.php');	
-	include_once('yandexThemAll.php');
-	
-	
-	
+	include_once('yandexThemAll.php');	
 
 	if(isset($_POST['send']) && $_POST['send'] == 1) {
 		
-		$dateStamp = date('ymd');
-		$stderr = fopen('errlog.txt', 'w');
+		$dateStamp = date('ymd');		
 		
 		$filename = basename($_FILES['myfile']['name']);		
 		$uploadfile = "upload/".$filename;
@@ -21,22 +17,26 @@
 		
 		$filepath = substr($_SERVER['SCRIPT_FILENAME'], 0, 22).$uploadfile;
 		
-		echo "<h2>$filepath</h2>";
-		
 		$postdata = array("project_name" => "test_project_1".$dateStamp,         
-	                       "source_lang" => $_POST['src'],   
-					//   "target_lang" => $_POST['dst'],
+	                       "source_lang" => $_POST['lang'],   
+				      //   "target_lang" => $_POST['dst'],
 						   "upload" => "@".$filepath);
+						   
+						   
+		$key = '91e3170c-3ffe-4c4a-9cb1-0f1daa7820b6';
+		
+		if(isset($_POST['format']) && $_POST['format'] == 'MP3') $format = 'Content-Type: audio/x-mpeg-3';
+		else $format = 'Content-Type: audio/x-wav';		
+		
+		if(isset($_POST['lang'])) $lang = $_POST['lang'];
+		else $lang = 'ru-RU';	
+		
+		recognize($uploadfile, $key, $lang, $format);
+		echo '<h2>done..</h2>';				   
 		
 	}
 
-     $filepath = substr($_SERVER['SCRIPT_FILENAME'], 0, 22);
-
-    echo "<h2>".$_SERVER['SCRIPT_FILENAME']."</h2>";
-	echo "<h2>$filepath</h2>";
-	 
-	 
-	 
+    $filepath = substr($_SERVER['SCRIPT_FILENAME'], 0, 22);
 	 
 	 
 ?>
@@ -52,20 +52,19 @@
 		<!--	<input type="hidden" name="target_lang" value="ru-RU"/>  -->
 	 		<input type="submit" value="Распознать файл" />	
             <div class="langs">Язык файла для распознавания
-				<select name="src">
+				<select name="lang">
 					<option>ru-RU</option>
 					<option>en-US</option>
 					<option>tr-TR</option>		
 					<option>uk-UK</option>					
 				</select>			
 			</div>
-		<!--	<div class="langs">Язык перевода
-				<select name="dst">
-					<option>ru-RU</option>
-					<option>en-US</option>
-					<option>fr-FR</option>				
+			<div class="langs">Язык перевода<br/>
+				<select name="format">
+					<option>WAV</option>
+					<option>MP3</option>
 				</select>			
-			</div>  -->
+			</div>  
 	
 		</form>
 		

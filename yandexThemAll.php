@@ -1,11 +1,9 @@
 <?php
 
-	if(!function_exists('curl_file_create')) {
-		
+	if(!function_exists('curl_file_create')) {		
 		function curl_file_create($filename, $mimetype = '', $postname = '') {
-			return "@$filename;filename=".($postname ?  : basename($filename).($mimetype ? ";type=$mimetype" : '');			
-		}
-		
+			return "@$filename;filename=".($postname ?  : basename($filename)).($mimetype ? ";type=$mimetype" : '');			
+		}		
 	}
 
 
@@ -33,20 +31,25 @@
 	}
 	
 	
-	function recognize($file, $key) {
+	function recognize($file, $key, $lang, $format) {
 		
-		$uuid = generateRandomSelection(0, 30, 64);
+	/*	$uuid = generateRandomSelection(0, 30, 64);
 		$uuid = implode($uuid);
 		$uuid = implode($uuid);
-		$uuid = substr($uuid,1,32);
+		$uuid = substr($uuid,1,32); */
+		
+		$stderr = fopen('errlog.txt', 'w');
 
 		$curl = curl_init();
 		$url = 'https://asr.yandex.net/asr_xml?'.http_build_query(array(
 			'key'=>$key,
-			'uuid' => $uuid,
-			'topic' => 'numbers',
-			'lang'=>'ru-RU'
+		 // 'uuid' => $uuid,
+			'uuid' => 'f1a213cb755628b58fb536d496daa1e6',
+			'topic' => 'queries',
+			'lang'=>$lang
 		));
+		
+		curl_setopt($curl, CURLOPT_STDERR, $stderr);
 		curl_setopt($curl, CURLOPT_URL, $url);
 		$data = file_get_contents(realpath($file));
 		curl_setopt($curl, CURLOPT_POST, true);
@@ -54,7 +57,8 @@
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
 		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-		curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: audio/x-wav'));
+		// curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: audio/x-wav'));
+		curl_setopt($curl, CURLOPT_HTTPHEADER, array($format));
 		curl_setopt($curl, CURLOPT_VERBOSE, true);
 		
 		$response = curl_exec($curl);

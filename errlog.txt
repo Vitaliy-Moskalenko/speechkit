@@ -1,0 +1,41 @@
+* Hostname was found in DNS cache
+* Hostname in DNS cache was stale, zapped
+*   Trying 213.180.193.202...
+* Connected to asr.yandex.net (213.180.193.202) port 443 (#14)
+* SSL connection using TLSv1.2 / ECDHE-RSA-AES128-GCM-SHA256
+* Server certificate:
+* 	 subject: C=RU; O=Yandex LLC; OU=ITO; L=Moscow; ST=Russian Federation; CN=*.asr.yandex.net
+* 	 start date: 2015-12-04 10:29:16 GMT
+* 	 expire date: 2017-12-03 10:29:16 GMT
+* 	 subjectAltName: asr.yandex.net matched
+* 	 issuer: C=RU; O=Yandex LLC; OU=Yandex Certification Authority; CN=Yandex CA
+* 	 SSL certificate verify result: unable to get local issuer certificate (20), continuing anyway.
+> POST /asr_xml?key=91e3170c-3ffe-4c4a-9cb1-0f1daa7820b6&uuid=f1a213cb755628b58fb536d496daa1e6&topic=queries&lang=en-US HTTP/1.1
+Host: asr.yandex.net
+Accept: */*
+Content-Type: audio/x-mpeg-3
+Content-Length: 923593
+Expect: 100-continue
+
+< HTTP/1.1 100 Continue
+< Access-Control-Allow-Origin: *
+< Connection: close
+< Content-Length: 0
+< Content-Type: text/html
+< Date: Tue, 29 Nov 2016 13:12:09 MSK
+* Server YaVoiceProxy2 is not blacklisted
+< Server: YaVoiceProxy2
+< X-YaReqFinish: 1480414330.000736
+< X-YaRequestId: 4a184c6e-b61c-11e6-a73e-ca8678dee4ec
+< HTTP/1.1 200 OK
+< Access-Control-Allow-Origin: *
+< Content-Length: 3185
+< Content-Type: text/xml; charset=utf-8
+< Date: Tue, 29 Nov 2016 13:13:03 MSK
+* Server YaVoiceProxy2 is not blacklisted
+< Server: YaVoiceProxy2
+< X-YaReqFinish: 1480414383.027363
+< X-YaRequestId: 4a184c6e-b61c-11e6-a73e-ca8678dee4ec
+< X-YaUuid: f1a213cb755628b58fb536d496daa1e6
+< 
+* Closing connection 14
